@@ -60,28 +60,41 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 AuthGradientButton(
                   buttonText: 'Sign In',
-                  onTap: () {},
+                  onTap: () async {
+                    await AuthRemoteRepository().login(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Don\'t have an account? ',
-                    style: TextStyle(
-                      color: Pallete.whiteColor,
-                      fontSize: 16.sp,
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignupPage(),
                     ),
-                    children: [
-                      TextSpan(
-                        text: 'Sign Up',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Pallete.gradient1,
-                          fontSize: 16.sp,
-                        ),
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Don\'t have an account? ',
+                      style: TextStyle(
+                        color: Pallete.whiteColor,
+                        fontSize: 16.sp,
                       ),
-                    ],
+                      children: [
+                        TextSpan(
+                          text: 'Sign Up',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Pallete.gradient1,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

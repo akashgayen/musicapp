@@ -67,30 +67,46 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                 AuthGradientButton(
+                AuthGradientButton(
                   buttonText: 'Sign Up',
-                  onTap: () {},
+                  onTap: () async {
+                    await AuthRemoteRepository().signUp(
+                      name: nameController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: TextStyle(
-                      color: Pallete.whiteColor,
-                      fontSize: 16.sp,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Sign In',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Pallete.gradient1,
-                          fontSize: 16.sp,
-                        ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
                       ),
-                    ],
+                    );
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      style: TextStyle(
+                        color: Pallete.whiteColor,
+                        fontSize: 16.sp,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'Sign In',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Pallete.gradient1,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

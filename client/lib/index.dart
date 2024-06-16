@@ -6,3 +6,4 @@ export 'package:responsive_sizer/responsive_sizer.dart';
 export 'package:client/features/auth/view/widgets/custom_textformfield.dart';
 export 'package:client/features/auth/view/widgets/auth_gradient_button.dart';
 export 'package:client/features/auth/view/pages/login_page.dart';
+export 'package:client/features/auth/repositories/auth_remote_repository.dart';

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Music',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      home: const LoginPage(),
+      home: const SignupPage(),
     );
   }
 }
