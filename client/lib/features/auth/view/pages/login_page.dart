@@ -1,13 +1,13 @@
 import 'package:client/index.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -21,6 +21,35 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(
+      authViewModelProvider.select(
+        (val) => val?.isLoading == true,
+      ),
+    );
+    ref.listen(authViewModelProvider, (_, curr) {
+      curr?.when(
+        data: (data) {
+          showSnackBar(
+            context: context,
+            message: 'Sign in successful!',
+          );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+            (_) => false,
+          );
+        },
+        error: (error, st) {
+          showSnackBar(
+            context: context,
+            message: error.toString(),
+          );
+        },
+        loading: () {},
+      );
+    });
     return ResponsiveSizer(
       builder: (p0, p1, p2) => Scaffold(
         appBar: AppBar(),
@@ -59,12 +88,18 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 AuthGradientButton(
+                  isLoading: isLoading,
                   buttonText: 'Sign In',
                   onTap: () async {
-                    await AuthRemoteRepository().login(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
+                    if (formKey.currentState!.validate()) {
+                      await ref.read(authViewModelProvider.notifier).loginUser(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                    } else {
+                      showSnackBar(
+                          context: context, message: 'Missing fields!');
+                    }
                   },
                 ),
                 const SizedBox(

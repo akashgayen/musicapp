@@ -3,10 +3,12 @@ import 'package:client/index.dart';
 class AuthGradientButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
+  final bool isLoading;
   const AuthGradientButton({
     super.key,
     required this.buttonText,
     required this.onTap,
+    required this.isLoading,
   });
 
   @override
@@ -33,14 +35,16 @@ class AuthGradientButton extends StatelessWidget {
             shadowColor: Pallete.transparentColor,
           ),
           onPressed: onTap,
-          child: Text(
-            buttonText,
-            style: const TextStyle(
-              color: Pallete.whiteColor,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: !isLoading
+              ? Text(
+                  buttonText,
+                  style: const TextStyle(
+                    color: Pallete.whiteColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              : const Loader(),
         ),
       ),
     );
