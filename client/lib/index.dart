@@ -28,3 +28,6 @@ export 'package:dotted_border/dotted_border.dart';
 export 'package:flex_color_picker/flex_color_picker.dart';
 export 'dart:io';
 export 'package:file_picker/file_picker.dart';
+export 'package:http/http.dart';
+export 'package:client/features/home/repositories/home_repository.dart';
+
